@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waypoint — Every trip you've taken. One map. Only yours.</title>
+<meta name="description" content="Waypoint turns your photos into a private travel atlas: real places, recorded walks, a globe that fills in as you travel. It lives on your iPhone, works fully offline, and the only feed is your friends. Join the founding waitlist.">
+<!--
+  Waypoint — founding waitlist landing page
+  Single self-contained file. No trackers, no analytics, no cookies, no external requests.
+  Fonts are named with system/web-safe fallbacks only (Fraunces / Manrope / JetBrains Mono
+  render where the visitor's system provides them; the stacks below carry the design either way).
+-->
+<style>
+  :root{
+    --parchment:#F5F0E6;
+    --parchment-deep:#EFE7D6;
+    --paper-card:#FBF8F1;
+    --ink:#1E2A32;
+    --ink-soft:#44545E;
+    --red:#B8321F;
+    --forest:#2E5A4C;
+    --line:#D8CFBB;
+    --line-ink:rgba(30,42,50,.28);
+    --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,"Times New Roman",serif;
+    --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--red);color:var(--parchment)}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+  /* ---------- header ---------- */
+  header{
+    border-bottom:1px solid var(--line-ink);
+  }
+  .header-in{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand svg{flex:none}
+  .brand-name{font-family:var(--serif);font-weight:600;font-size:22px;letter-spacing:.01em}
+  .brand-sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-soft);display:block;line-height:1.2}
+  .header-cta{
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink);text-decoration:none;border:1px solid var(--ink);
+    padding:9px 14px;border-radius:3px;background:transparent;
+  }
+  .header-cta:hover{background:var(--ink);color:var(--parchment)}
+
+  /* ---------- shared bits ---------- */
+  .kicker{
+    font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--red);margin-bottom:14px;
+  }
+  .kicker .n{color:var(--ink-soft)}
+  h2{
+    font-family:var(--serif);font-weight:600;font-size:32px;line-height:1.15;letter-spacing:-.01em;
+    margin-bottom:14px;
+  }
+  section{padding:64px 0}
+  .rule{border:none;border-top:1px solid var(--line-ink)}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:56px 0 64px;
+    background:
+      repeating-linear-gradient(0deg,transparent 0 63px, rgba(30,42,50,.045) 63px 64px),
+      repeating-linear-gradient(90deg,transparent 0 63px, rgba(30,42,50,.045) 63px 64px),
+      var(--parchment);
+    border-bottom:1px solid var(--line-ink);
+  }
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:44px}
+  @media(min-width:920px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}}
+  .hero h1{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(40px,7.2vw,62px);line-height:1.04;letter-spacing:-.015em;
+    margin-bottom:22px;
+  }
+  .hero h1 .only{color:var(--red)}
+  .hero .sub{
+    font-size:19px;line-height:1.62;color:var(--ink);max-width:34em;margin-bottom:32px;
+  }
+
+  /* waitlist form */
+  .capture{
+    background:var(--paper-card);
+    border:1px solid var(--ink);
+    border-radius:4px;
+    padding:20px;
+    box-shadow:5px 5px 0 rgba(30,42,50,.14);
+    max-width:520px;
+  }
+  .capture label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    display:block;margin-bottom:10px;color:var(--ink);
+  }
+  .capture-row{display:flex;gap:10px;flex-wrap:wrap}
+  .capture input[type="email"]{
+    flex:1 1 220px;
+    font-family:var(--sans);font-size:16px;
+    padding:13px 14px;
+    border:1px solid var(--line-ink);border-radius:3px;
+    background:#fff;color:var(--ink);
+  }
+  .capture input[type="email"]:focus{outline:2px solid var(--forest);outline-offset:1px;border-color:var(--forest)}
+  .capture button{
+    font-family:var(--sans);font-weight:700;font-size:16px;
+    background:var(--red);color:#fff;border:1px solid var(--red);
+    padding:13px 20px;border-radius:3px;cursor:pointer;white-space:nowrap;
+  }
+  .capture button:hover{background:#9E2B1B;border-color:#9E2B1B}
+  .capture .fineprint{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin-top:13px}
+  .capture .form-msg{font-size:14px;margin-top:10px;display:none}
+  .capture .form-msg.error{display:block;color:var(--red)}
+  .capture .form-msg.ok{display:block;color:var(--forest)}
+
+  /* atlas card (hero visual) */
+  .atlas-card{
+    background:var(--paper-card);
+    border:1px solid var(--ink);border-radius:4px;
+    box-shadow:5px 5px 0 rgba(30,42,50,.14);
+    overflow:hidden;
+  }
+  .atlas-head{
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid var(--line-ink);padding:12px 16px;
+  }
+  .atlas-head .t{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .stamp{
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--red);border:1.5px solid var(--red);border-radius:3px;
+    padding:4px 8px;transform:rotate(3deg);background:rgba(184,50,31,.05);white-space:nowrap;
+  }
+  .atlas-map{display:block;width:100%;height:auto;background:
+    repeating-linear-gradient(0deg,transparent 0 31px, rgba(30,42,50,.05) 31px 32px),
+    repeating-linear-gradient(90deg,transparent 0 31px, rgba(30,42,50,.05) 31px 32px),
+    var(--parchment-deep)}
+  .atlas-stats{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line-ink);
+  }
+  .atlas-stats div{padding:12px 8px;text-align:center;border-left:1px solid var(--line)}
+  .atlas-stats div:first-child{border-left:none}
+  .atlas-stats .num{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.1;display:block}
+  .atlas-stats .lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .atlas-caption{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin-top:12px}
+
+  /* ---------- proof cards ---------- */
+  .proof-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:28px}
+  @media(min-width:860px){.proof-grid{grid-template-columns:repeat(3,1fr)}}
+  .proof{
+    background:var(--paper-card);border:1px solid var(--line-ink);border-radius:4px;
+    padding:24px 22px;display:flex;flex-direction:column;gap:10px;
+  }
+  .proof .q{
+    font-family:var(--serif);font-style:italic;font-weight:600;font-size:21px;line-height:1.25;color:var(--ink);
+  }
+  .proof .mech{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--forest)}
+  .proof p{font-size:15.5px;line-height:1.62;color:var(--ink-soft)}
+  .proof p strong{color:var(--ink);font-weight:700}
+
+  /* ---------- privacy ---------- */
+  .privacy{background:var(--ink);color:var(--parchment)}
+  .privacy .kicker{color:#E8A294}
+  .privacy .kicker .n{color:rgba(245,240,230,.55)}
+  .privacy h2{color:var(--parchment)}
+  .privacy-list{display:grid;grid-template-columns:1fr;gap:0;margin-top:10px}
+  @media(min-width:860px){.privacy-list{grid-template-columns:1fr 1fr;column-gap:44px}}
+  .privacy-item{border-top:1px solid rgba(245,240,230,.25);padding:18px 0}
+  .privacy-item h3{font-family:var(--serif);font-weight:600;font-size:19px;margin-bottom:6px}
+  .privacy-item p{font-size:15.5px;line-height:1.62;color:rgba(245,240,230,.82)}
+  .privacy-item p strong{color:var(--parchment)}
+
+  /* ---------- pricing ---------- */
+  .price-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:28px}
+  @media(min-width:860px){.price-grid{grid-template-columns:1fr 1fr}}
+  .plan{
+    background:var(--paper-card);border:1px solid var(--line-ink);border-radius:4px;padding:26px 24px;
+    display:flex;flex-direction:column;
+  }
+  .plan.max{border:1.5px solid var(--ink);box-shadow:5px 5px 0 rgba(30,42,50,.14);position:relative}
+  .plan .tag{
+    align-self:flex-start;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--forest);color:var(--forest);border-radius:3px;padding:3px 8px;margin-bottom:14px;
+  }
+  .plan.max .tag{border-color:var(--red);color:var(--red)}
+  .plan h3{font-family:var(--serif);font-weight:600;font-size:24px}
+  .plan .price{font-family:var(--serif);font-weight:600;font-size:34px;margin:6px 0 2px}
+  .plan .price small{font-size:15px;font-family:var(--sans);font-weight:400;color:var(--ink-soft)}
+  .plan .per{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px}
+  .plan ul{list-style:none}
+  .plan li{
+    font-size:15.5px;line-height:1.5;padding:8px 0 8px 24px;position:relative;
+    border-top:1px dashed var(--line);
+  }
+  .plan li::before{content:"—";position:absolute;left:2px;color:var(--red)}
+  .trial-strip{
+    margin-top:18px;border:1px dashed var(--red);border-radius:4px;padding:18px 20px;
+    background:rgba(184,50,31,.05);font-size:16px;line-height:1.6;
+  }
+  .trial-strip strong{color:var(--red)}
+
+  /* ---------- faq ---------- */
+  .faq-list{margin-top:8px}
+  .faq-item{border-top:1px solid var(--line-ink);padding:20px 0}
+  .faq-item:last-child{border-bottom:1px solid var(--line-ink)}
+  .faq-item h3{font-family:var(--serif);font-weight:600;font-size:19.5px;margin-bottom:6px}
+  .faq-item p{font-size:15.5px;line-height:1.65;color:var(--ink-soft);max-width:44em}
+  .faq-item p strong{color:var(--ink)}
+
+  /* ---------- final cta / footer ---------- */
+  .final-cta{text-align:left}
+  .final-cta .capture{margin-top:22px}
+  footer{border-top:1px solid var(--line-ink);padding:34px 0 44px;background:var(--parchment-deep)}
+  .footer-motto{font-family:var(--serif);font-style:italic;font-size:18px;margin-bottom:14px}
+  .footer-links{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+  .footer-links a{color:var(--ink);font-size:14.5px;text-decoration:underline;text-underline-offset:3px}
+  .footer-small{font-size:13px;color:var(--ink-soft);line-height:1.6}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-in">
+    <a class="brand" href="#top" aria-label="Waypoint — back to top">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+        <circle cx="13" cy="13" r="11.5" fill="none" stroke="#1E2A32" stroke-width="1.6"/>
+        <path d="M13 4 L17.5 18.5 L13 15.8 L8.5 18.5 Z" fill="#B8321F"/>
+      </svg>
+      <span>
+        <span class="brand-name">Waypoint</span>
+        <span class="brand-sub">A private travel atlas</span>
+      </span>
+    </a>
+    <a class="header-cta" href="#join">Join the waitlist</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">Waypoint for iPhone <span class="n">· launching in the coming weeks</span></p>
+        <h1>Every trip you've taken. One map. <span class="only">Only yours.</span></h1>
+        <p class="sub">Your photos already know where you've been — Waypoint draws the map. Import a trip and your camera roll becomes an atlas: photos pinned to the real pub, park, and trailhead, walks drawn as routes, and a globe that fills in as you travel. It all lives on your iPhone, works fully offline, and the only feed is your friends.</p>
+
+        <div class="capture" id="join">
+          <!-- ============================================================
+            WAITLIST FORM ENDPOINT — PLACEHOLDER
+            Replace the form's action URL below (and in the second form at the
+            bottom of this page) with the live subscribe endpoint from the email
+            platform. See ../email-platform-and-sequence.md, setup step 5.
+            Buttondown: Settings → Subscribe form → embed code gives
+              https://buttondown.com/api/emails/embed-subscribe/<your-username>
+            Kit / Klaviyo: paste that platform's form POST URL the same way.
+          ============================================================= -->
+          <form action="https://buttondown.com/api/emails/embed-subscribe/REPLACE-WITH-BUTTONDOWN-USERNAME" method="post" class="waitlist-form" novalidate>
+            <label for="email-1">Join the founding waitlist</label>
+            <div class="capture-row">
+              <input type="email" id="email-1" name="email" placeholder="you@example.com" autocomplete="email" required>
+              <!-- Source tag: filled by the small script at the bottom from ?src= / utm_source, so we can tell a Reddit signup from a friend's forward. -->
+              <input type="hidden" name="metadata[source]" class="source-field" value="landing">
+              <button type="submit">Join the waitlist</button>
+            </div>
+            <p class="form-msg" role="status"></p>
+            <p class="fineprint">The first 500 get priority TestFlight invites and first access at launch. It's double opt-in, so check your inbox to confirm. A few build notes while we finish, then the launch email. No spam, and the list is never sold — that would be a strange business model for a privacy app.</p>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <div class="atlas-card" role="img" aria-label="An example atlas card: three trips — Banff, Kyoto, Lisbon — shown as pins joined by a route, with totals of 3 trips, 3 countries, 21 places and 25 photos.">
+          <div class="atlas-head">
+            <span class="t">The example atlas</span>
+            <span class="stamp">Test data · Not a user's trips</span>
+          </div>
+          <svg class="atlas-map" viewBox="0 0 520 300" aria-hidden="true">
+            <!-- graticule arcs -->
+            <path d="M-20 235 Q 260 160 540 225" fill="none" stroke="rgba(30,42,50,.18)" stroke-width="1"/>
+            <path d="M-20 265 Q 260 195 540 258" fill="none" stroke="rgba(30,42,50,.12)" stroke-width="1"/>
+            <path d="M60 -10 Q 95 150 70 310" fill="none" stroke="rgba(30,42,50,.12)" stroke-width="1"/>
+            <path d="M250 -10 Q 270 150 255 310" fill="none" stroke="rgba(30,42,50,.12)" stroke-width="1"/>
+            <path d="M440 -10 Q 425 150 450 310" fill="none" stroke="rgba(30,42,50,.12)" stroke-width="1"/>
+            <!-- route -->
+            <path d="M92 196 L262 84 L428 168" fill="none" stroke="#B8321F" stroke-width="2" stroke-dasharray="6 6"/>
+            <!-- Banff -->
+            <circle cx="92" cy="196" r="7" fill="#B8321F"/>
+            <circle cx="92" cy="196" r="13" fill="none" stroke="#B8321F" stroke-width="1"/>
+            <text x="92" y="228" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="2" fill="#1E2A32">BANFF</text>
+            <text x="92" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#44545E">51.18° N · DEC</text>
+            <!-- Kyoto -->
+            <circle cx="262" cy="84" r="7" fill="#B8321F"/>
+            <circle cx="262" cy="84" r="13" fill="none" stroke="#B8321F" stroke-width="1"/>
+            <text x="262" y="60" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="2" fill="#1E2A32">KYOTO</text>
+            <text x="262" y="116" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#44545E">35.01° N · APR</text>
+            <!-- Lisbon -->
+            <circle cx="428" cy="168" r="7" fill="#B8321F"/>
+            <circle cx="428" cy="168" r="13" fill="none" stroke="#B8321F" stroke-width="1"/>
+            <text x="428" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="2" fill="#1E2A32">LISBON</text>
+            <text x="428" y="216" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#44545E">38.72° N · JUL</text>
+            <!-- compass -->
+            <g transform="translate(482,36)">
+              <circle r="15" fill="none" stroke="rgba(30,42,50,.4)" stroke-width="1"/>
+              <path d="M0 -11 L3.5 4 L0 1.5 L-3.5 4 Z" fill="#2E5A4C"/>
+              <text y="-21" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#44545E">N</text>
+            </g>
+          </svg>
+          <div class="atlas-stats">
+            <div><span class="num">3</span><span class="lab">Trips</span></div>
+            <div><span class="num">3</span><span class="lab">Countries</span></div>
+            <div><span class="num">21</span><span class="lab">Places</span></div>
+            <div><span class="num">25</span><span class="lab">Photos</span></div>
+          </div>
+        </div>
+        <p class="atlas-caption">We built a small fake atlas — a winter week in Banff, spring in Kyoto, a July week in Lisbon — to put Waypoint through its paces. Three recorded walks, about 6.4&nbsp;km of routes. Your atlas will be made of your actual life; this one exists so the screenshots are honest about being staged.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PROOF ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker"><span class="n">01 —</span> What it does</p>
+      <h2>Two questions every traveler already asks</h2>
+      <div class="proof-grid">
+
+        <article class="proof">
+          <p class="q">&ldquo;Where was this?&rdquo;</p>
+          <p class="mech">Real places, not coordinates</p>
+          <p>Import photos and they land on the <strong>actual pub, park, trailhead, and temple</strong> — not a pair of coordinates in a field. You confirm each pin, because GPS drifts, and a pin in the wrong pub is worse than no pin. In the example atlas, <strong>25 photos resolved to 21 named places</strong>.</p>
+        </article>
+
+        <article class="proof">
+          <p class="q">&ldquo;How much of the world have I actually seen?&rdquo;</p>
+          <p class="mech">The globe + coverage</p>
+          <p>Your list of countries is free, as plain text. <strong>Max turns it into a globe that colors in as you travel</strong>, plus coverage stats — how much of a city you have actually walked, not just visited. The example atlas colors <strong>3 countries on 3 continents</strong>. The rest stays parchment until you've been.</p>
+        </article>
+
+        <article class="proof">
+          <p class="q">&ldquo;Who else can see this?&rdquo;</p>
+          <p class="mech">Postcards — friends only</p>
+          <p>Postcards is a feed with <strong>only your friends in it</strong>. No followers. No discover page. Nothing public by default. A trip leaves your phone only when you send it to someone yourself — a whole trip, photos, places, and routes, landing in their atlas.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" style="max-width:1060px;margin:0 auto">
+
+  <!-- ================= PRIVACY ================= -->
+  <section class="privacy">
+    <div class="wrap">
+      <p class="kicker"><span class="n">02 —</span> Private by design</p>
+      <h2>Said plainly, including the part most apps skip</h2>
+      <div class="privacy-list">
+        <div class="privacy-item">
+          <h3>It lives on your iPhone</h3>
+          <p>Your atlas is stored on your phone and <strong>works fully offline</strong> — plane mode, no signal, halfway up a mountain. An account is optional; it exists only for sharing with friends, if you ever want it. Your trips never depend on a server.</p>
+        </div>
+        <div class="privacy-item">
+          <h3>Your data is never paywalled</h3>
+          <p><strong>Full backup and export are free on every tier, forever.</strong> Your photos, places, and routes are yours — leave whenever, take everything with you. No hostage pricing, no "restore is a premium feature."</p>
+        </div>
+        <div class="privacy-item">
+          <h3>The feed has a door, and it's closed</h3>
+          <p>Postcards shows <strong>only people you've shared with</strong>. There is no public feed, no follower count, and no setting that accidentally makes a trip public — public isn't a thing Waypoint does.</p>
+        </div>
+        <div class="privacy-item">
+          <h3>The honest clause, about ads</h3>
+          <p>The free tier is supported by <strong>non-personalized ads</strong> — ads that are never targeted using your trips, your location, or a profile of you, because that data never reaches them. Max and the Max trial carry no ads at all. This page, for the record, has <strong>no trackers, no analytics, and no cookies</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker"><span class="n">03 —</span> Pricing</p>
+      <h2>Free, or Max. Two tiers, no ladder</h2>
+      <div class="price-grid">
+
+        <article class="plan">
+          <span class="tag">For everyone</span>
+          <h3>Free</h3>
+          <p class="price">$0</p>
+          <p class="per">Free forever. Supported by non-personalized ads.</p>
+          <ul>
+            <li>Your whole atlas — unlimited trips, up to 1,000 photos in each</li>
+            <li>The map, the places, and GPS walk recording</li>
+            <li>Postcards — the friends-only feed</li>
+            <li>Share cards and send-a-trip: a whole trip to a friend, free</li>
+            <li>Google Takeout / Timeline import — get your history back</li>
+            <li>Complete backup and GPX export. Your data is never paywalled</li>
+          </ul>
+        </article>
+
+        <article class="plan max">
+          <span class="tag">The depth</span>
+          <h3>Max</h3>
+          <p class="price">$9.99<small> /month</small> · $79.99<small> /year</small></p>
+          <p class="per">One tier. Pick the billing that suits you.</p>
+          <ul>
+            <li>Everything in Free, plus:</li>
+            <li>The 3D globe — your world, colored in</li>
+            <li>Coverage stats: how much of each city you've actually seen</li>
+            <li>Unlimited photos per trip</li>
+            <li>Cloud sync — your atlas waiting for you on a new phone</li>
+            <li>No ads. None, on any screen</li>
+          </ul>
+        </article>
+
+      </div>
+      <div class="trial-strip">
+        <strong>Try Max before you pay for it:</strong> 1 month free on monthly billing, 3 months free on annual — the long trial is the annual plan's reward. The paywall shows your exact first-charge date before anything renews, and there's a reminder before it lands. Cancel in Settings and your atlas stays exactly as it was.
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" style="max-width:1060px;margin:0 auto">
+
+  <!-- ================= FAQ ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker"><span class="n">04 —</span> Questions</p>
+      <h2>Asked, answered</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <h3>When does Waypoint launch?</h3>
+          <p>Soon — we're finishing the Postcards feed and the 3D globe, and we launch when they're ready, not before. No date is promised, on purpose. <strong>Waitlist members hear first</strong>, and the first 500 get TestFlight invites while we polish.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How much does it cost?</h3>
+          <p>Free — your map, your trips, every import path. Max ($9.99/month or $79.99/year) adds the globe, coverage stats, unlimited photos, cloud sync, and removes the ads. <strong>At launch, Max starts free: one month on monthly billing, three months on annual.</strong> Either way, exporting your own data is always free. That's a promise, not a tier.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is the feed public? Can strangers see my trips?</h3>
+          <p>No. There is <strong>no public feed, no followers, and no discover page</strong>. Your Postcards feed shows only people you've shared with, and a trip leaves your phone only when you send it to someone yourself.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Do I need an account?</h3>
+          <p>No. The atlas works with no account at all — it's on your phone. An account exists <strong>only for sharing</strong>: friends, the Postcards feed, and (on Max) cloud sync. Skip it and nothing about your own trips changes.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>I lost my Google Timeline. Can Waypoint get it back?</h3>
+          <p>If you have a Google Takeout export, yes — import it and Waypoint rebuilds your trips from it. If you never exported, your camera roll still holds most of the story: import your photos and the trips come back. <strong>Our confirmation email links a 2-minute guide</strong> to grabbing your Takeout file while you still can.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is there an Android version?</h3>
+          <p>Not at launch — iPhone first, done properly. Android is on the roadmap, and waitlist members will be the first to know. (Yes, you can still join the list just for the launch news.)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section style="padding-top:8px">
+    <div class="wrap final-cta">
+      <p class="kicker"><span class="n">05 —</span> The list</p>
+      <h2>Get the launch email</h2>
+      <p style="max-width:36em;color:var(--ink-soft)">One email when Waypoint goes live, a few build notes before it. First 500 on the list get TestFlight invites while we finish.</p>
+      <div class="capture">
+        <!-- Same placeholder endpoint as the hero form — replace both actions when the email platform is wired (see the comment in the hero form). -->
+        <form action="https://buttondown.com/api/emails/embed-subscribe/REPLACE-WITH-BUTTONDOWN-USERNAME" method="post" class="waitlist-form" novalidate>
+          <label for="email-2">Join the founding waitlist</label>
+          <div class="capture-row">
+            <input type="email" id="email-2" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <input type="hidden" name="metadata[source]" class="source-field" value="landing-footer">
+            <button type="submit">Join the waitlist</button>
+          </div>
+          <p class="form-msg" role="status"></p>
+          <p class="fineprint">Double opt-in — confirm from your inbox and you're on the list.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="footer-motto">Private by design. Friends-only by default. Your data is yours.</p>
+    <nav class="footer-links">
+      <!-- Placeholder links: point these at docs/privacy.html and docs/terms.html wherever the page is hosted, and at the support address. -->
+      <a href="privacy.html">Privacy policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="#">Support</a>
+    </nav>
+    <p class="footer-small">Waypoint is made by one person — Jake Weppner, in California — and he's its heaviest user.<br>
+    © 2026 Waypoint. The example atlas on this page uses staged test data, labeled as such, because other people's trips aren't ours to show.</p>
+  </div>
+</footer>
+
+<script>
+  // Tiny niceties only — the page works with JavaScript off; the forms just POST.
+  (function () {
+    // Carry the traffic source into a hidden field (src= or utm_source= in the URL),
+    // so signups can be source-tagged (a Reddit signup is not a friend's forward).
+    var params = new URLSearchParams(window.location.search);
+    var src = params.get("src") || params.get("utm_source");
+    if (src) {
+      document.querySelectorAll(".source-field").forEach(function (f) { f.value = src.slice(0, 60); });
+    }
+    // Inline email check so a typo gets fixed here instead of bouncing at the provider.
+    document.querySelectorAll(".waitlist-form").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        var input = form.querySelector('input[type="email"]');
+        var msg = form.querySelector(".form-msg");
+        var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim());
+        if (!ok) {
+          e.preventDefault();
+          msg.textContent = "That email address doesn't look complete — one more look?";
+          msg.className = "form-msg error";
+          input.focus();
+        } else {
+          msg.textContent = "Sending you to confirm — check your inbox for the double opt-in email.";
+          msg.className = "form-msg ok";
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
